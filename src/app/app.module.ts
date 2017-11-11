@@ -1,4 +1,3 @@
-import { AutosPage } from './../pages/autos/autos';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -21,6 +20,10 @@ import { GmapsProvider } from '../providers/gmaps/gmaps';
 import { HttpModule } from '@angular/http';
 import { AutosProvider } from '../providers/autos/autos';
 
+import { AddAutosPage } from './../pages/add-autos/add-autos';
+import { AutosPage } from './../pages/autos/autos';
+
+import { TituloPipe } from './../pipes/titulo/titulo';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { AutosProvider } from '../providers/autos/autos';
     ContactPage,
     HomePage,
     TabsPage,
-    AutosPage
+    AutosPage,
+    AddAutosPage,
+    TituloPipe
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,8 @@ import { AutosProvider } from '../providers/autos/autos';
     ContactPage,
     HomePage,
     TabsPage,
-    AutosPage
+    AutosPage,
+    AddAutosPage
   ],
   providers: [
     StatusBar,

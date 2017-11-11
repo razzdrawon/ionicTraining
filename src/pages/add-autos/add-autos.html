@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar align-title="center">
+    <ion-title>
+      <h1>
+        {{titulo | titulo:"Agregar Auto"}}
+      </h1>
+    </ion-title>
+    <ion-buttons>
+      <button ion-button (tap)="cerrarModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (tap)="guardar()" [disabled]="!formAuto.valid">
+        <ion-icon name="md-add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list no-lines>
+    <form [formGroup]="formAuto">
+      <ion-item>
+        <ion-label floating>Marca:</ion-label>
+        <ion-input formControlName="marca" type="text" [(ngModel)]="titulo"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!formAuto.controls.marca.valid && (formAuto.controls.marca.dirty || submitAttempt)">
+        <p class="text-danger">Requerida (máximo 15 letras).</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Modelo:</ion-label>
+        <ion-input formControlName="modelo" type="text"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!formAuto.controls.modelo.valid && (formAuto.controls.modelo.dirty || submitAttempt)">
+        <p class="text-danger">Requerido (máximo 10 letras).</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Año:</ion-label>
+        <ion-input formControlName="anio" type="number"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!formAuto.controls.anio.valid && (formAuto.controls.anio.dirty || submitAttempt)">
+        <p class="text-danger">Requerido (máximo 4 números).</p>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Versión:</ion-label>
+        <ion-input formControlName="version" type="text"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!formAuto.controls.version.valid && (formAuto.controls.version.dirty || submitAttempt)">
+        <p class="text-danger">Requerida (máximo 15 letras).</p>
+      </ion-item>
+    </form>
+  </ion-list>
+</ion-content>

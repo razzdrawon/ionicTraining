@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { AutosProvider } from './../../providers/autos/autos';
 
-/**
- * Generated class for the AutosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AddAutosPage } from './../add-autos/add-autos';
 
 @IonicPage()
 @Component({
@@ -27,12 +22,14 @@ export class AutosPage implements OnInit {
   image: any;
 
   public autos: any[];
+  public sinAutos: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
-    private autosProvider: AutosProvider
+    private autosProvider: AutosProvider,
+    private modalController: ModalController
   ) {
   }
 
@@ -48,13 +45,19 @@ export class AutosPage implements OnInit {
         }
         else {
           console.log(result);
-          let autos = Observable.of(result);
+          let autos = Observable.of(result.data);
           autos.map(
             autos => autos.map(auto => Object.assign(
               {}, auto, { img: 'assets/imgs/' + auto.marca.toLowerCase() + '.png' }
             )
             )
           ).subscribe(autos => this.autos = autos);
+          if (this.autos.length < 1) {
+            this.sinAutos = true;
+          }
+          else {
+            this.sinAutos = false;
+          }
         }
       },
       error => {
@@ -77,6 +80,10 @@ export class AutosPage implements OnInit {
       ]
     });
     alert.present(prompt);
+  }
+
+  public modalAddAuto() {
+    this.modalController.create(AddAutosPage).present();
   }
 
 }

@@ -6,7 +6,7 @@
 </ion-header>
 <ion-content padding>
   <div>
-    <ion-item>
+    <ion-item *ngIf="sinAutos" >
         <ion-label color="primary">Sin autos aún :(</ion-label>
     </ion-item>
     <img/>
@@ -22,7 +22,7 @@
     </div>
   </ion-card>
   <ion-fab right bottom>
-    <button ion-fab color="primary">
+    <button ion-fab color="primary" (tap)="modalAddAuto()">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
