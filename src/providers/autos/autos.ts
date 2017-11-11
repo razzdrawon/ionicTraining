@@ -20,7 +20,7 @@ export class AutosProvider {
 
    getAutos() {
      return this.http.get(this.url + '/autos')
-            .map(res => res.json());
+            .map(res => res.json().data);
    }
 
    postAuto(auto:Auto){

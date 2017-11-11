@@ -48,9 +48,12 @@ export class AutosPage implements OnInit {
         }
         else {
           console.log(result);
-          let autos = Observable.of(result.data);
-          autos.map(autos=> 
-            autos.map(auto=>Object.assign({},auto,{img:'assets/imgs/'+auto.marca.toLowerCase()+'.png'}))
+          let autos = Observable.of(result);
+          autos.map(
+            autos => autos.map(auto=>Object.assign(
+              {}, auto, {img:'assets/imgs/'+auto.marca.toLowerCase()+'.png'}
+            )
+          )
           ).subscribe(autos=>this.autos = autos);
         }
       },
