@@ -54,7 +54,7 @@ export class AutosPage implements OnInit {
               {}, auto, {img:'assets/imgs/'+auto.marca.toLowerCase()+'.png'}
             )
           )
-          ).subscribe(autos=>this.autos = autos);
+          ).subscribe(autos => this.autos = autos);
         }
       },
       error => {
