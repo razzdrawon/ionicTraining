@@ -16,6 +16,11 @@
         </ion-row>
     </ion-grid>
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="18">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-marker [latitude]="m.lat" [longitude]="m.lng" [markerDraggable]="m.draggable"
+    (dragEnd)="markerDragEnd(m, $event)">
+    <agm-info-window #infoWindow><strong>{{m.label}}</strong></agm-info-window>
+  </agm-marker>
+
+
   </agm-map>
 </ion-content>

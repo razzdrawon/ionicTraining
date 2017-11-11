@@ -38,9 +38,12 @@ export class HomePage {
     private geolocation: Geolocation,
     private loadingCtrl: LoadingController,
     private platform: Platform,
-    private toastCtrl:ToastController
+    private toastCtrl:ToastController,
+    private gmapsProvider: GmapsProvider
   ) {
-
+    this.m.lat = this.lat;
+    this.m.lng = this.lng;
+    this.m.draggable = true;
   }
 
   buscarUbicacion() {
@@ -66,11 +69,38 @@ export class HomePage {
               console.log(this.lat);
               console.log(this.lng);
               this.loading.dismissAll();
+
+
+              this.gmapsProvider.getAddressData(this.lat, this.lng)
+              .subscribe(
+                response => {
+                  try{
+                    //Quitamos la carga
+                    this.loading.dismissAll()
+                    //Asignamos lat y lng al marcador
+                    this.m.lat = this.lat
+                    this.m.lng = this.lng
+                    //Definimos el marcador como arrastable
+                    this.m.draggable = true
+                    //Seteamos en la variable direccion
+                    //La dirección obtenida
+                    this.direccion = response.results[0].formatted_address
+                    this.m.label = this.direccion
+                    //Mostramos mensaje
+                    this.displayMessage(
+                      'Fija el pin en la ubicación correcta',
+                      'Ubicación encontrada'
+                    )
+                  }catch(error){
+                    this.errorInterno()
+                  }
+                }
+              );
+              
             }
           )
           .catch((error) => {
-            this.loading.dismissAll();
-            this.displayMessage('Ocurrió un error', 'Error interno del sistema');
+            this.errorInterno();
           });
         }
       }
@@ -95,6 +125,33 @@ export class HomePage {
       }).present();
   }
 
+  //Obtenemos las nuevas coordenadas
+  markerDragEnd(m: marker, $event) {
+    this.m.lat = $event.coords.lat
+    this.m.lng = $event.coords.lng
+    this.showLoading()
+    this.gmapsProvider.getAddressData(this.m.lat,this.m.lng).subscribe(
+      response=>{
+        try{
+          //Obtenemos la direccion de las nuevas coordenadas
+          this.direccion = response.results[0].formatted_address
+          this.m.label = this.direccion
+          this.loading.dismissAll()
+        }catch(error){
+          this.errorInterno()
+        }
+      },
+      error=>{
+        this.errorInterno()
+      }
+    )
+  }
+
+  private errorInterno() {
+    this.loading.dismissAll();
+    this.displayMessage('Ocurrio un error', 'Error interno del sistema');
+  }
+
   //función que se encarga de mostrar mensaje Alerta 
   private displayMessage(err:string,title:string){
     let alert = this.alertCtrl.create({
@@ -106,12 +163,11 @@ export class HomePage {
     });
     alert.present(prompt);
   }
-
 }
 
 interface marker {
   lat: number;
   lng: number;
   label?: string;
-  drawable: boolean;
+  draggable: boolean;
 } 

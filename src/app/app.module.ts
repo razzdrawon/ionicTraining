@@ -1,3 +1,4 @@
+import { AutosPage } from './../pages/autos/autos';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -18,6 +19,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { GmapsProvider } from '../providers/gmaps/gmaps';
 import { HttpModule } from '@angular/http';
+import { AutosProvider } from '../providers/autos/autos';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { HttpModule } from '@angular/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AutosPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { HttpModule } from '@angular/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AutosPage
   ],
   providers: [
     StatusBar,
@@ -52,7 +56,8 @@ import { HttpModule } from '@angular/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
     Diagnostic,
-    GmapsProvider
+    GmapsProvider,
+    AutosProvider
   ]
 })
 export class AppModule {}

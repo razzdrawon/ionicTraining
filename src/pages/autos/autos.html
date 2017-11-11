@@ -1,0 +1,29 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Autos</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div>
+    <ion-item>
+        <ion-label color="primary">Sin autos aún :(</ion-label>
+    </ion-item>
+    <img/>
+  </div>
+  <ion-card *ngFor="let auto of autos;let i = index">
+    <img [src]="auto.img"/>
+    <div class="item-content">
+      <ion-card-content>
+          <ion-card-title >
+              {{auto.marca}} {{auto.modelo}} {{auto.anio}} {{auto.version}}
+          </ion-card-title>
+      </ion-card-content>
+    </div>
+  </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab color="primary">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
