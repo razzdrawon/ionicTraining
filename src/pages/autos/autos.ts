@@ -83,7 +83,11 @@ export class AutosPage implements OnInit {
   }
 
   public modalAddAuto() {
-    this.modalController.create(AddAutosPage).present();
+    let createModal = this.modalController.create(AddAutosPage);
+    createModal.onDidDismiss(() => {
+      this.getAutos();
+    });
+    createModal.present();
   }
 
 }

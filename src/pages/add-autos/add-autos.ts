@@ -92,7 +92,12 @@ export class AddAutosPage {
       title: title,
       subTitle: err,
       buttons: [
-        "Ok"
+        {
+          text: 'OK',
+          handler: () => {
+          this.cerrarModal();
+          }
+        }
       ]
     });
     alert.present();
