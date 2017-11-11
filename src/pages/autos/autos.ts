@@ -24,12 +24,12 @@ export class AutosPage implements OnInit {
     this.getAutos();
   }
 
-  image:any;
- 
-  public autos:any[];
+  image: any;
+
+  public autos: any[];
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private autosProvider: AutosProvider
@@ -43,17 +43,17 @@ export class AutosPage implements OnInit {
   getAutos() {
     this.autosProvider.getAutos().subscribe(
       result => {
-        if(!result) {
+        if (!result) {
           this.errorInterno();
         }
         else {
           console.log(result);
           let autos = Observable.of(result);
           autos.map(
-            autos => autos.map(auto=>Object.assign(
-              {}, auto, {img:'assets/imgs/'+auto.marca.toLowerCase()+'.png'}
+            autos => autos.map(auto => Object.assign(
+              {}, auto, { img: 'assets/imgs/' + auto.marca.toLowerCase() + '.png' }
             )
-          )
+            )
           ).subscribe(autos => this.autos = autos);
         }
       },
@@ -68,7 +68,7 @@ export class AutosPage implements OnInit {
   }
 
   //función que se encarga de mostrar mensaje Alerta 
-  private displayMessage(err:string,title:string){
+  private displayMessage(err: string, title: string) {
     let alert = this.alertCtrl.create({
       title: title,
       subTitle: err,
